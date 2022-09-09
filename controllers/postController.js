@@ -108,13 +108,14 @@ export const likePost = async (req, res) => {
     return res.status(404).json({ error: "No post with that ID" });
   }
   const seletedPost = await Post.findById(id);
-  const upatedPost = await Post.findByIdAndUpdate(
+  const updatedPost = await Post.findByIdAndUpdate(
     id,
     {
       likeCount: seletedPost.likeCount + 1,
     },
     { new: true }
   );
+  res.json(updatedPost);
 };
 // export const likePost = async (req, res) => {
 //   const { id } = req.params;
