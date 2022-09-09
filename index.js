@@ -1,4 +1,4 @@
-// import "dotenv/config";
+import "dotenv/config";
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 });
 
 const PORT = process.env.PORT;
-const URL = process.env.MONGODB_URL;
+const URL = process.env.MONGO_URL;
 
 // //connect to db
 mongoose
