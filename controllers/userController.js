@@ -1,3 +1,4 @@
+import "dotenv/config";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -20,7 +21,7 @@ export const signin = async (req, res) => {
     //we will neeed user info, secret, session time.
     const token = jwt.sign(
       { email: existUser.email, id: existUser._id },
-      "test",
+      process.env.SECRET,
       { expiresIn: "1h" }
     );
     res.status(200).json({ result: existUser, token });
@@ -44,9 +45,13 @@ export const signup = async (req, res) => {
       password: hashedPassword,
       name: `${firstName} ${lastName}`,
     });
-    const token = jwt.sign({ email: result.email, id: result._id }, "test", {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { email: result.email, id: result._id },
+      process.env.SECRET,
+      {
+        expiresIn: "1h",
+      }
+    );
     res.status(200).json({ result: result, token });
   } catch (error) {
     res.status(500).json({ mssg: "Something went wrong" });
